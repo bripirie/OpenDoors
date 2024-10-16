@@ -1,0 +1,10 @@
+OpenDoors 5.00 door programming toolkit for C
+OpenDoors is an advanced and easy to use
+library for writing BBS doors with Borland/MS C
+
+OpenDoors provides transparent support for
+interfacing with a vast range of BBS systems,
+sending output to both local and remote systems,
+generating ANSI/AVATAR/RIP control sequences,
+providing sysop status line and function keys
+including chat and DOS shell.

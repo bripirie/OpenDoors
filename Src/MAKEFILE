@@ -1,0 +1,325 @@
+#
+#  €€€€€€€€€€                         €€€€€€€‹
+#  €€€ﬂﬂﬂﬂ€€€                         €€€ﬂﬂﬂ€€€
+#  €€€    €€€ ‹‹‹‹‹‹‹ ‹‹‹‹‹‹‹ ‹‹‹‹‹‹‹ €€€   €€€ ‹‹‹‹‹‹‹ ‹‹‹‹‹‹‹ ‹‹‹‹‹‹ ‹‹‹‹‹‹‹
+#  €€€    €€€ €€€ﬂ€€€ €€€ﬂ€€€ €€€ﬂ€€€ €€€   €€€ €€€ﬂ€€€ €€€ﬂ€€€ €€€ﬂﬂﬂ €€€ﬂﬂﬂﬂ
+#  €€€‹‹‹‹€€€ €€€ €€€ €€€ﬂﬂﬂﬂ €€€ €€€ €€€‹‹‹€€€ €€€ €€€ €€€ €€€ €€€    ﬂﬂﬂﬂ€€€
+#  €€€€€€€€€€ €€€€€€€ €€€€€€€ €€€ €€€ €€€€€€€ﬂ  €€€€€€€ €€€€€€€ €€€    €€€€€€€
+#             €€€
+#             €€€
+#             ﬂﬂﬂ                                     Door Programming Toolkit
+#  ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+#
+#       (C) Copyright 1991 - 1994 by Brian Pirie. All Rights Reserved.
+#
+#
+#
+#
+#      Filename : MAKEFILE.
+#   Description : makefile used to rebuild OpenDoors libraries from source
+#                 code. Usage is described below.
+#       Version : 5.00
+#   Last Edited : June 15, 1994
+#
+###############################################################################
+#
+# USAGE INFORMATION
+#
+###############################################################################
+#
+# Command Line:   make -DMODEL=l
+#                    or
+#                 nmake "MODEL=l"
+#
+# Where:  "MODEL=l" - Specifies which memory model library should be built.
+#                     MODEL can be set to:
+#
+#                           t - Tiny memory model (if supported by compiler)
+#                           s - Small memory model
+#                           c - Compact memory model
+#                           m - Medium memory model
+#                           l - Large memory model
+#                           h - Huge memory model
+#
+#                     Memory model sepecifier must be in lower case for Borland
+#                     compilers, and upper case for Microsoft compilers.
+#
+###############################################################################
+#
+# CONFIGURATION
+#
+# Customize this section of the makefile to provide the relevant information
+# for your compiler and assembler (if any).
+#
+###############################################################################
+# Compiler executable file name. Use:
+#
+#                  tcc - For Turbo C and Turbo C++
+#                  bcc - For Borland C++
+#
+CC=tcc
+#
+#------------------------------------------------------------------------------
+#
+# Assembler executable file name. Use:
+#
+#                 tasm - For Turbo Assembler
+#                 masm - For Microsoft Macro Assembler
+#
+AS=tasm
+#
+#------------------------------------------------------------------------------
+#
+# Library managment utility. Use:
+#
+#                 tlib - For Borland compilers
+#
+LIB=tlib
+#
+#------------------------------------------------------------------------------
+#
+# Compiler command-line flags. Use:
+#
+#      -m$(MODEL) -c -O -G -Z -d  - For Borland compilers including Turbo C
+#          /a$(MODEL) /c /NOLOGO  - For Microsoft compilers
+#
+CFLAGS=-m$(MODEL) -c -O -G -Z -d
+# -Id:\prog\tc\include
+#
+#------------------------------------------------------------------------------
+#
+# Assembler command-line flags.
+#
+AFLAGS=/mx
+ADEFLCODE=/dLCODE
+ADEFLDATA=/dLDATA
+#
+###############################################################################
+#
+# DEPENDENCIES
+#
+# You won't normally have to change anything after this point in this makefile.
+#
+###############################################################################
+#
+# Define primary target.
+#
+all: odoor$(MODEL).lib
+#
+#------------------------------------------------------------------------------
+#
+# Build from C sources.
+#
+odauto$(MODEL).obj : odauto.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odauto.c
+   command /c erase odauto$(MODEL).obj
+   command /c ren odauto.obj odauto$(MODEL).obj
+
+odblock$(MODEL).obj : odblock.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odblock.c
+   command /c erase odblock$(MODEL).obj
+   command /c ren odblock.obj odblock$(MODEL).obj
+
+odcfile$(MODEL).obj : odcfile.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odcfile.c
+   command /c erase odcfile$(MODEL).obj
+   command /c ren odcfile.obj odcfile$(MODEL).obj
+
+odcom$(MODEL).obj : odcom.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odcom.c
+   command /c erase odcom$(MODEL).obj
+   command /c ren odcom.obj odcom$(MODEL).obj
+
+odcore$(MODEL).obj : odcore.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odcore.c
+   command /c erase odcore$(MODEL).obj
+   command /c ren odcore.obj odcore$(MODEL).obj
+
+oddrbox$(MODEL).obj : oddrbox.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) oddrbox.c
+   command /c erase oddrbox$(MODEL).obj
+   command /c ren oddrbox.obj oddrbox$(MODEL).obj
+
+odedstr$(MODEL).obj : odedstr.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odedstr.c
+   command /c erase odedstr$(MODEL).obj
+   command /c ren odedstr.obj odedstr$(MODEL).obj
+
+odemu$(MODEL).obj : odemu.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odemu.c
+   command /c erase odemu$(MODEL).obj
+   command /c ren odemu.obj odemu$(MODEL).obj
+
+odgraph$(MODEL).obj : odgraph.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odgraph.c
+   command /c erase odgraph$(MODEL).obj
+   command /c ren odgraph.obj odgraph$(MODEL).obj
+
+odiface$(MODEL).obj : odiface.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odiface.c
+   command /c erase odiface$(MODEL).obj
+   command /c ren odiface.obj odiface$(MODEL).obj
+
+odifsup$(MODEL).obj : odifsup.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odifsup.c
+   command /c erase odifsup$(MODEL).obj
+   command /c ren odifsup.obj odifsup$(MODEL).obj
+
+odlist$(MODEL).obj : odlist.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odlist.c
+   command /c erase odlist$(MODEL).obj
+   command /c ren odlist.obj odlist$(MODEL).obj
+
+odlog$(MODEL).obj : odlog.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odlog.c
+   command /c erase odlog$(MODEL).obj
+   command /c ren odlog.obj odlog$(MODEL).obj
+
+odmulti$(MODEL).obj : odmulti.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odmulti.c
+   command /c erase odmulti$(MODEL).obj
+   command /c ren odmulti.obj odmulti$(MODEL).obj
+
+odpcb$(MODEL).obj : odpcb.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odpcb.c
+   command /c erase odpcb$(MODEL).obj
+   command /c ren odpcb.obj odpcb$(MODEL).obj
+
+odpopup$(MODEL).obj : odpopup.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odpopup.c
+   command /c erase odpopup$(MODEL).obj
+   command /c ren odpopup.obj odpopup$(MODEL).obj
+
+odprntf$(MODEL).obj : odprntf.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odprntf.c
+   command /c erase odprntf$(MODEL).obj
+   command /c ren odprntf.obj odprntf$(MODEL).obj
+
+odra$(MODEL).obj : odra.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odra.c
+   command /c erase odra$(MODEL).obj
+   command /c ren odra.obj odra$(MODEL).obj
+
+odscrn$(MODEL).obj : odscrn.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odscrn.c
+   command /c erase odscrn$(MODEL).obj
+   command /c ren odscrn.obj odscrn$(MODEL).obj
+
+odspawn$(MODEL).obj : odspawn.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odspawn.c
+   command /c erase odspawn$(MODEL).obj
+   command /c ren odspawn.obj odspawn$(MODEL).obj
+
+odstand$(MODEL).obj : odstand.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odstand.c
+   command /c erase odstand$(MODEL).obj
+   command /c ren odstand.obj odstand$(MODEL).obj
+
+odstat$(MODEL).obj : odstat.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odstat.c
+   command /c erase odstat$(MODEL).obj
+   command /c ren odstat.obj odstat$(MODEL).obj
+
+odwcat$(MODEL).obj : odwcat.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odwcat.c
+   command /c erase odwcat$(MODEL).obj
+   command /c ren odwcat.obj odwcat$(MODEL).obj
+
+odwin$(MODEL).obj : odwin.c opendoor.h odintern.h
+   $(CC) $(CFLAGS) odwin.c
+   command /c erase odwin$(MODEL).obj
+   command /c ren odwin.obj odwin$(MODEL).obj
+#
+#------------------------------------------------------------------------------
+#
+# Build from assembly sources.
+#
+odswapt.obj : odswap.asm
+   $(AS) $(AFLAGS) odswap.asm
+   command /c erase odswapt.obj
+   command /c ren odswap.obj odswapt.obj
+
+odswaps.obj : odswap.asm
+   $(AS) $(AFLAGS) odswap.asm
+   command /c erase odswaps.obj
+   command /c ren odswap.obj odswaps.obj
+
+odswapc.obj : odswap.asm
+   $(AS) $(AFLAGS) $(ADEFLDATA) odswap.asm
+   command /c erase odswapc.obj
+   command /c ren odswap.obj odswapc.obj
+
+odswapm.obj : odswap.asm
+   $(AS) $(AFLAGS) $(ADEFLCODE) odswap.asm
+   command /c erase odswapm.obj
+   command /c ren odswap.obj odswapm.obj
+
+odswapl.obj : odswap.asm
+   $(AS) $(AFLAGS) $(ADEFLDATA) $(ADEFLCODE) odswap.asm
+   command /c erase odswapl.obj
+   command /c ren odswap.obj odswapl.obj
+
+odswaph.obj : odswap.asm
+   $(AS) $(AFLAGS) $(ADEFLDATA) $(ADEFLCODE) odswap.asm
+   command /c erase odswaph.obj
+   command /c ren odswap.obj odswaph.obj
+#
+#------------------------------------------------------------------------------
+#
+# Build library from objects.
+#
+OBJECTS= odauto$(MODEL).obj\
+         odblock$(MODEL).obj\
+         odcfile$(MODEL).obj\
+         odcom$(MODEL).obj\
+         odcore$(MODEL).obj\
+         oddrbox$(MODEL).obj\
+         odedstr$(MODEL).obj\
+         odemu$(MODEL).obj\
+         odgraph$(MODEL).obj\
+         odiface$(MODEL).obj\
+         odifsup$(MODEL).obj\
+         odlist$(MODEL).obj\
+         odlog$(MODEL).obj\
+         odmulti$(MODEL).obj\
+         odpcb$(MODEL).obj\
+         odpopup$(MODEL).obj\
+         odprntf$(MODEL).obj\
+         odra$(MODEL).obj\
+         odscrn$(MODEL).obj\
+         odspawn$(MODEL).obj\
+         odstand$(MODEL).obj\
+         odstat$(MODEL).obj\
+         odswap$(MODEL).obj\
+         odsys$(MODEL).obj\
+         odwcat$(MODEL).obj\
+         odwin$(MODEL).obj
+odoor$(MODEL).lib : $(OBJECTS)
+   $(LIB) odoor$(MODEL).lib -+odauto$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odblock$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odcfile$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odcom$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odcore$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+oddrbox$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odedstr$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odemu$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odgraph$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odiface$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odifsup$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odlist$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odlog$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odmulti$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odpcb$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odpopup$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odprntf$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odra$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odscrn$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odspawn$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odstand$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odstat$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odswap$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odsys$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odwcat$(MODEL).obj
+   $(LIB) odoor$(MODEL).lib -+odwin$(MODEL).obj
+#
+#------------------------------------------------------------------------------

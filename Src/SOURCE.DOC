@@ -1,0 +1,166 @@
+                               OpenDoors 5.00
+                                    ---
+                          SOURCE CODE DOCUMENTATION
+
+       (C) Copyright 1991 - 1994, Brian Pirie. All Rights Reserved.
+
+
+
+
+ÚÄ WELCOME Ä¿
+ÀÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        Thank-you for purchasing the OpenDoors source code. This short
+        manual is intended to provide you with a few pieces of
+        information on how to alter and recompile your OpenDoors source
+        code. This manual presumes that you are already familiar with
+        OpenDoors itself, and have read the OPENDOOR.DOC file that is
+        distributed with the OpenDoors archive.
+
+
+
+ÚÄ THE LEGALITIES Ä¿
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        The restrictions on the use of OpenDoors and source code package
+        is documented in the OpenDoors manual. Simply put, you are
+        permitted to do whatever you wish with the OpenDoors source
+        code, short of distributing or selling copies of the source code
+        or altered versions of OpenDoors. This means that you are
+        permitted to alter the source code as little or as much as you
+        wish, and compile your own programs with altered versions of the
+        OpenDoors code.
+
+
+
+ÚÄ SOURCE CODE PACKAGE REQUIREMENTS Ä¿
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        As is described in the OpenDoors manual, you must be using a
+        one of Borland's C or C++ compilers that support inline assembly
+        language keywords in order to recompile the OpenDoors source
+        code without changes. Such compilers include Borland Turbo C++
+        2.00 and later, Borland C++ 2.00 and later, and the professional
+        edition of Borland C++ 1.00. The ODSWAP.ASM module can only be
+        recompiled if you have a stand-alone assembler, such as TASM or
+        MASM. Otherwise, you can use the included .OBJ files for this
+        module.
+
+
+
+ÚÄ SOURCE CODE ROADMAP Ä¿
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        The OpenDoors source code is divided into a number of modules
+        (.c files), each of which implements a major functional
+        component of the toolkit. Each module #includes two
+        OpenDoors-specific header files: opendoor.h and odintern.h. The
+        opendoor.h file contains the public definitions that form the
+        OpenDoors API. These are the functions, variables and constants
+        that are documented in the OpenDoors manual. The odintern.h
+        header files includes function prototypes and shared variables
+        that are only intended for use within the OpenDoors modules
+        themselves. The OpenDoors modules are as follows:
+
+        ODAUTO.C    - Implementation of the od_autodetect() function.
+        ODCFILE.C   - Reads OpenDoors configuration files.
+        ODSWAP.ASM  - Performs memory swapping on DOS shell / od_spawn()
+        ODCORE.C    - Core functions that are central to any OD program.
+        ODEDSTR.C   - Implementation of the od_edit_str() function.
+        ODPOPUP.C   - Popup menus.
+        ODSTAND.C   - OpenDoors standard personality.
+        ODSTAT.C    - Status line helper functions.
+        ODIFACE.C   - Initializes OpenDoors and interfaces with BBS.
+        ODIFSUP.C   - Second half of odiface.c.
+        ODGRAPH.C   - Speical ANSI/AVATAR/RIP-specific functions.
+        ODBLOCK.C   - Screen block manipulations, including scrolling.
+        ODLOG.C     - Logfile writing routines.
+        ODWCAT.C    - Wildcat personality.
+        ODWIN.C     - Windowing functions.
+        ODDRBOX.C   - Box drawing function.
+        ODPRNTF.C   - Implementation of od_printf().
+        ODSCRN.C    - Local screen writing functions.
+        ODMULTI.C   - Multiple Personality System.
+        ODSPAWN.C   - Implements the od_spawn...() functions.
+        ODPCB.C     - PC-Board personality.
+        ODRA.C      - RemoteAccess personality.
+        ODLIST.C    - FILES.BBS listing capabilities.
+        ODCOM.C     - Serial I/O routines.
+        ODEMU.C     - Local ANSI/AVATAR terminal emulation.
+        ODSYS?.OBJ  - Registration key validation routines.
+
+        When these files are compiled to object form and placed in the
+        OpenDoors library files, a single letter is appended to their
+        name to indicate which memory model they were compiled under.
+        For instance, ODEMU.C is compiled to ODEMUL.OBJ under the large
+        memory model. The characters used for each memory model are as
+        follows:
+
+            S - Small
+            C - Compact
+            M - Medium
+            L - Large
+            H - Huge
+
+
+
+ÚÄ RECOMPILING OPENDOORS FROM THE SOURCE CODE Ä¿
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+        In order to make it easier for you to rebuild OpenDoors, a
+        makefile is included. You can use this makefile in conjunction
+        with the make utility that is included with your compiler, in
+        order to only recompile those portions of the libraries which
+        have been affected by your changes.
+
+        Before using the makefile, you should edit it to ensure that the
+        program names correspond to the names that are used for your
+        compiler. In particular, if you are using Borland C++ rather
+        than Turbo C++, you will have to change the reference to tcc to
+        bcc. Once you have customized the makefile for your system, you
+        can rebuild the OpenDoors source code by issuing the command:
+
+           make -DMODEL=x
+
+        where x is a LOWER-CASE letter denoting which memory model
+        library should be compiled. This may be one of the following:
+
+           make -DMODEL=s      - For small memory model (ODOORS.LIB)
+           make -DMODEL=c      - For compact memory model (ODOORC.LIB)
+           make -DMODEL=m      - For medium memory model (ODOORM.LIB)
+           make -DMODEL=l      - For large memory model (ODOORL.LIB)
+           make -DMODEL=h      - For huge memory model (ODOORH.LIB)
+
+        You can recompile all of the memory models by issuing the
+        command build. This batch file simply runs make for each of the
+        possible momory model settings.
+
+
+
+ÚÄ OBTAINING NEW VERSIONS OF THE SOURCE CODE Ä¿
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+       When new version of OpenDoors are released, you are entitled to
+       receive new versions of the OpenDoors source code and/or
+       OpenDoors itself, by any of the following means:
+
+   1.) CONVENTIONAL MAIL - To receive a new version of the OpenDoors
+       source and OpenDoors itself, you may send $3 to cover the cost
+       of postage and a diskette to me. I will then send the most recent
+       OpenDoors toolkit and source code package to you. My mailing
+       address is:
+
+                                  Brian Pirie
+                         Apt. 1416 - 2201 Riverside Dr.
+                                Ottawa, Ontario
+                                    Canada
+                                   K1H  8K9
+
+
+   2.) BBS or FIDONET MAIL - You may also pick up the newest version of
+       OpenDoors and/or arrange to pick up the newest version of the
+       source code by contacting me on the support BBS, at +1 613 526
+       4466, at FidoNet address 1:243/8. Simply leave a message
+       indicating that you would like to receive the new source code
+       package, and I will leave this package on hold for you to pick up
+       when you next call the BBS or poll with your mail software.
